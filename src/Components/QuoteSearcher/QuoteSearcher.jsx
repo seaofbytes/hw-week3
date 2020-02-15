@@ -15,6 +15,11 @@ export default class QuoteSearcher extends Component {
   }
 
   search = (keyword = this.state.searchValue) => {
+    if (!data.results.length) {
+          this.setState({ ...this.state, noSearchResult: true });
+        } else {
+          this.setState({ ...this.state, noSearchResult: false });
+        }
     fetch(`https://quote-garden.herokuapp.com/quotes/search/${keyword}`)
       .then(res => res.json())
       .then(data => {
@@ -156,7 +161,11 @@ export default class QuoteSearcher extends Component {
               Search
             </button>
           </form>
-          {this.displayQuotes()}
+          {this.state.noSearchResult ? (
+            <div>No Search Results</div>
+          ) : (
+            this.displayQuotes()
+          )}
         </div>
       );
     }
