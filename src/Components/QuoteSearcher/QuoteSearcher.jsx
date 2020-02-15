@@ -124,9 +124,7 @@ export default class QuoteSearcher extends Component {
     if (this.state.fetching) {
       return <div>Loading . . .</div>;
     } else {
-      return this.state.fetching ? (
-        <div>Loading . . .</div>
-      ) : (
+      return (
         <div>
           <h1>QUOTES</h1>
           <AddQuote
