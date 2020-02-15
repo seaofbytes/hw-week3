@@ -15,14 +15,16 @@ export default class QuoteSearcher extends Component {
   }
 
   search = (keyword = this.state.searchValue) => {
-    if (!data.results.length) {
+    
+    fetch(`https://quote-garden.herokuapp.com/quotes/search/${keyword}`)
+      .then(res => res.json())
+      .then(data => {
+      if (!data.results.length) {
           this.setState({ ...this.state, noSearchResult: true });
         } else {
           this.setState({ ...this.state, noSearchResult: false });
         }
-    fetch(`https://quote-garden.herokuapp.com/quotes/search/${keyword}`)
-      .then(res => res.json())
-      .then(data => {
+      
         const uniqueQuotes = data.results.reduce((uniqueQuotes, quote) => {
           return uniqueQuotes.map(q => q.quoteText).includes(quote.quoteText)
             ? uniqueQuotes
